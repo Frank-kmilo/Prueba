@@ -17,7 +17,7 @@ namespace Prueba.API.Controllers
         }
 
         [HttpGet]
-        public async Task<string> Index()
+        public async Task<string> Index(int IdUsuario)
         {
             TaskManagementHelper oTask = new TaskManagementHelper(_context);
             List<TaskManagement> tasks = await oTask.GetTask();

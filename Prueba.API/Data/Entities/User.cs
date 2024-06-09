@@ -15,11 +15,9 @@ namespace Prueba.API.Data.Entities
         [Required(ErrorMessage = "El campo {0} es obligatorio.")]
         public string LastName { get; set; }
 
-        [Display(Name = "Documento")]
+        [Display(Name = "Email")]
         [MaxLength(20, ErrorMessage = "El campo {0} no puede tener mas de {1} carácteres.")]
         [Required(ErrorMessage = "El campo {0} es obligatorio.")]
-        public string Document { get; set; }
-
-
+        public string Email { get; set; }
     }
 }

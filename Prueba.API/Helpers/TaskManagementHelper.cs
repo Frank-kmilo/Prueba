@@ -1,9 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.EntityFrameworkCore;
 using Prueba.API.Data;
 using Prueba.API.Data.Entities;
 
 namespace Prueba.API.Helpers
 {
+    [Authorize]
     public class TaskManagementHelper : ITaskManagerHelper
     {
         private readonly DataContext _context;
