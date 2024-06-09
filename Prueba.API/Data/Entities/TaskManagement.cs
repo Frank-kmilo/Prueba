@@ -9,7 +9,7 @@ namespace Prueba.API.Data.Entities
         public int Id { get; set; }
 
         [Display(Name = "Nombre de la tarea.")]
-        [MaxLength(100, ErrorMessage ="El campo {0} no puede tener mas de {1} carácteres.")]
+        [MaxLength(20, ErrorMessage ="El campo {0} no puede tener mas de {1} carácteres.")]
         [Required(ErrorMessage ="El campo {0} es obligatorio.")]
         public string TaskName { get; set; }
 

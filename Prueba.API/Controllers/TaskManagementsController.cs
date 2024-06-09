@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using NuGet.Protocol;
 using Prueba.API.Data;
 using Prueba.API.Data.Entities;
+using Prueba.API.Helpers;
 
 namespace Prueba.API.Controllers
 {
@@ -14,123 +16,35 @@ namespace Prueba.API.Controllers
             _context = context;
         }
 
-        // GET: TaskManagements
-        public async Task<IActionResult> Index()
+        [HttpGet]
+        public async Task<string> Index()
         {
-            return _context.TaskManagements != null ?
-                        View(await _context.TaskManagements.ToListAsync()) :
-                        Problem("No existen tareas registradas");
-        }
-
-        // GET: TaskManagements/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null || _context.TaskManagements == null)
-            {
-                return NotFound();
-            }
-
-            TaskManagement? taskManagement = await _context.TaskManagements
-                .FirstOrDefaultAsync(m => m.Id == id);
-            return taskManagement == null ? NotFound() : View(taskManagement);
-        }
-
-        // GET: TaskManagements/Create
-        public IActionResult Create()
-        {
-            return View();
+            TaskManagementHelper oTask = new TaskManagementHelper(_context);
+            List<TaskManagement> tasks = await oTask.GetTask();
+            return  tasks.Count != 0 ?
+                        tasks.ToJson() :
+                       "[Error:] No existen tareas registradas";
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,TaskName,Description,ExpirationDate,IsComplete")] TaskManagement taskManagement)
+        public async Task<string> Create(TaskManagement taskManagement)
         {
-            if (ModelState.IsValid)
-            {
-                _ = _context.Add(taskManagement);
-                _ = await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(taskManagement);
+            TaskManagementHelper oTask = new TaskManagementHelper(_context);
+            return await oTask.CreateTask(taskManagement) ? Ok().StatusCode.ToString() : "[Error:] No se pudo crear la tarea";
         }
 
-        // GET: TaskManagements/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        [HttpPut]
+        public async Task<string> Edit(TaskManagement taskManagement)
         {
-            if (id == null || _context.TaskManagements == null)
-            {
-                return NotFound();
-            }
-
-            TaskManagement? taskManagement = await _context.TaskManagements.FindAsync(id);
-            return taskManagement == null ? NotFound() : View(taskManagement);
+            TaskManagementHelper oTask = new TaskManagementHelper(_context);
+            return await oTask.UpdateTask(taskManagement) ? Ok().StatusCode.ToString() : "[Error:] No se pudo actualizar la tarea";
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,TaskName,Description,ExpirationDate,IsComplete")] TaskManagement taskManagement)
+        [HttpDelete]
+        public async Task<string> Delete(int id)
         {
-            if (id != taskManagement.Id)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _ = _context.Update(taskManagement);
-                    _ = await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!TaskManagementExists(taskManagement.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(taskManagement);
-        }
-
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null || _context.TaskManagements == null)
-            {
-                return NotFound();
-            }
-
-            TaskManagement? taskManagement = await _context.TaskManagements
-                .FirstOrDefaultAsync(m => m.Id == id);
-            return taskManagement == null ? NotFound() : View(taskManagement);
-        }
-
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            if (_context.TaskManagements == null)
-            {
-                return Problem("Entity set 'DataContext.TaskManagements'  is null.");
-            }
-            TaskManagement? taskManagement = await _context.TaskManagements.FindAsync(id);
-            if (taskManagement != null)
-            {
-                _ = _context.TaskManagements.Remove(taskManagement);
-            }
-
-            _ = await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-
-        private bool TaskManagementExists(int id)
-        {
-            return (_context.TaskManagements?.Any(e => e.Id == id)).GetValueOrDefault();
-        }
+            TaskManagementHelper oTask = new TaskManagementHelper(_context);
+            return await oTask.DeleteTask(id) ? Ok().StatusCode.ToString() : "[Error:] No se pudo Eliminar la tarea";
+        }   
     }
 }
