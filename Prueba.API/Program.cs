@@ -31,7 +31,11 @@ void SeedDatabase(IWebHost host)//can be placed at the very bottom under app.Run
         seeder.SeedAsync().Wait();
     }
 }
-builder.Services.AddControllers().AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase);
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.PropertyNamingPolicy = null;
+    options.JsonSerializerOptions.DictionaryKeyPolicy = null;
+});
 builder.Services.AddTransient<SeedDb>();
 builder.Services.AddScoped<IUserHelper, UserHelper>();
 
