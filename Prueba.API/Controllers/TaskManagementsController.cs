@@ -17,6 +17,7 @@ namespace Prueba.API.Controllers
         }
 
         [HttpGet]
+        [Route("TaskManagement/Index")]
         public async Task<string> Index(int IdUsuario)
         {
             TaskManagementHelper oTask = new TaskManagementHelper(_context);
@@ -27,6 +28,7 @@ namespace Prueba.API.Controllers
         }
 
         [HttpPost]
+        [Route("TaskManagement/Create")]
         public async Task<string> Create(TaskManagement taskManagement)
         {
             TaskManagementHelper oTask = new TaskManagementHelper(_context);
@@ -34,6 +36,7 @@ namespace Prueba.API.Controllers
         }
 
         [HttpPut]
+        [Route("TaskManagement/Edit")]
         public async Task<string> Edit(TaskManagement taskManagement)
         {
             TaskManagementHelper oTask = new TaskManagementHelper(_context);
@@ -41,6 +44,7 @@ namespace Prueba.API.Controllers
         }
 
         [HttpDelete]
+        [Route("TaskManagement/Delete")]
         public async Task<string> Delete(int id)
         {
             TaskManagementHelper oTask = new TaskManagementHelper(_context);

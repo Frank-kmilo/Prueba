@@ -4,6 +4,7 @@ using Microsoft.Extensions.Hosting;
 using Prueba.API.Data;
 using Prueba.API.Data.Entities;
 using Prueba.API.Helpers;
+using System.Text.Json;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -30,7 +31,7 @@ void SeedDatabase(IWebHost host)//can be placed at the very bottom under app.Run
         seeder.SeedAsync().Wait();
     }
 }
-
+builder.Services.AddControllers().AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase);
 builder.Services.AddTransient<SeedDb>();
 builder.Services.AddScoped<IUserHelper, UserHelper>();
 
