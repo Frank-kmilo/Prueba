@@ -7,8 +7,8 @@ namespace Prueba.API.Helpers
     public interface IUserHelper
     {                
         Task<User> GetUserAsync(string email);
-        Task<IdentityResult> AddUserAsync(User user, string password);
-        Task<SignInResult> LoginAsync(LoginViewModel model);
+        Task<bool> AddUserAsync(User user, string password);
+        Task<bool> LoginAsync(LoginViewModel model);
         Task LogoutAsync();
     }
 }
