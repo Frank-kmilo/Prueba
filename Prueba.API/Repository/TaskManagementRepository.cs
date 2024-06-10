@@ -1,12 +1,10 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Prueba.API.Data;
 using Prueba.API.Data.Entities;
 using Prueba.API.Helpers;
 
 namespace Prueba.API.Repository
 {
-    [Authorize]
     public class TaskManagementRepository : ITaskManagerHelper
     {
         private readonly DataContext _context;
@@ -34,8 +32,8 @@ namespace Prueba.API.Repository
                 task = _context.TaskManagements.Where(x => x.Id == Id).FirstOrDefault();
                 if (task != null)
                 {
-                    _ = _context.Remove(task);
-                    _ = await _context.SaveChangesAsync();
+                    _context.Remove(task);
+                    await _context.SaveChangesAsync();
                 }
                 return true;
             }
@@ -49,8 +47,8 @@ namespace Prueba.API.Repository
         {
             try
             {
-                _ = _context.TaskManagements.Add(taskManagement);
-                _ = await _context.SaveChangesAsync();
+                _context.TaskManagements.Add(taskManagement);
+                await _context.SaveChangesAsync();
                 return true;
             }
             catch (Exception)

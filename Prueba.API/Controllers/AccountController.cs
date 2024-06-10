@@ -20,13 +20,13 @@ namespace Prueba.API.Controllers
         }      
 
         [HttpPost]
-        [Route("add-user-async")]
-        public async Task<IdentityResult> AddUserAsync(AddUserViewModel addUser) {
+        [Route("add-user")]
+        public async Task<bool> AddUserAsync(AddUserViewModel addUser) {
             User user = new User()
             {
                 FisrtName = addUser.FirstName,
                 Email = addUser.Email,
-                LastName = addUser.LastName,
+                LastName = addUser.LastName                
             };
             return await _userHelper.AddUserAsync(user, addUser.Password);
         }
@@ -36,14 +36,12 @@ namespace Prueba.API.Controllers
         public async Task<bool> Login(LoginViewModel model) {
             if (ModelState.IsValid)
             {
-                var result = await _userHelper.LoginAsync(model);
-                return result.Succeeded;
+                return  await _userHelper.LoginAsync(model);
             }
             return false;
         }
 
-        public async Task Logout() { 
-        await _userHelper.LogoutAsync();
-        }
+        public async Task Logout() => await _userHelper.LogoutAsync();
+        
     }
 }
