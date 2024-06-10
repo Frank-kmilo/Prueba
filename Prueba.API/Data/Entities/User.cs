@@ -17,6 +17,9 @@ namespace Prueba.API.Data.Entities
         [Required(ErrorMessage = "El campo {0} es obligatorio.")]
         [JsonProperty]
         public string LastName { get; set; }
-      
+
+        [JsonIgnore]
+        public ICollection<TaskManagement> taskManagement { get; set; }
+
     }
 }

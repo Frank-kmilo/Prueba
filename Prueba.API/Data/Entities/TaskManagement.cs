@@ -8,12 +8,12 @@ namespace Prueba.API.Data.Entities
     {
         public int Id { get; set; }
 
-        public int IdUsuario { get; set; }
+        public User user { get; set; }
 
         [Display(Name = "Nombre de la tarea.")]
         [MaxLength(20, ErrorMessage ="El campo {0} no puede tener mas de {1} carácteres.")]
         [Required(ErrorMessage ="El campo {0} es obligatorio.")]
-        public string TaskName { get; set; }
+        public string Name { get; set; }
 
         [Display(Name = "Descripción")]
         [MaxLength(500, ErrorMessage = "El campo {0} no puede tener mas de {1} carácteres.")]

@@ -1,0 +1,15 @@
+.container {
+  display: flex;
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center; /* Centra verticalmente */
+  height: 100vh; /* Utiliza el 100% de la altura de la ventana */
+}
+
+.content {
+  text-align: center; /* Alinea el contenido del div */
+  border: 1px solid #ccc; /* Solo para visualización */
+  padding: 20px;
+}
+
+
+

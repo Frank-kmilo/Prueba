@@ -7,6 +7,9 @@ using Prueba.API.Helpers;
 
 namespace Prueba.API.Controllers
 {
+    [Produces("aplication/json")]
+    [ApiController]
+    [Route("api/task")]
     public class TaskManagementsController : Controller
     {
         private readonly DataContext _context;
@@ -17,8 +20,8 @@ namespace Prueba.API.Controllers
         }
 
         [HttpGet]
-        [Route("TaskManagement/Index")]
-        public async Task<string> Index(int IdUsuario)
+        [Route("index")]
+        public async Task<string> Index(int UserId)
         {
             TaskManagementHelper oTask = new TaskManagementHelper(_context);
             List<TaskManagement> tasks = await oTask.GetTask();
@@ -28,7 +31,7 @@ namespace Prueba.API.Controllers
         }
 
         [HttpPost]
-        [Route("TaskManagement/Create")]
+        [Route("create")]
         public async Task<string> Create(TaskManagement taskManagement)
         {
             TaskManagementHelper oTask = new TaskManagementHelper(_context);
@@ -36,7 +39,7 @@ namespace Prueba.API.Controllers
         }
 
         [HttpPut]
-        [Route("TaskManagement/Edit")]
+        [Route("edit")]
         public async Task<string> Edit(TaskManagement taskManagement)
         {
             TaskManagementHelper oTask = new TaskManagementHelper(_context);
@@ -44,7 +47,7 @@ namespace Prueba.API.Controllers
         }
 
         [HttpDelete]
-        [Route("TaskManagement/Delete")]
+        [Route("delete/{id}")]
         public async Task<string> Delete(int id)
         {
             TaskManagementHelper oTask = new TaskManagementHelper(_context);

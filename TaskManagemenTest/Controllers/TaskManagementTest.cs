@@ -56,7 +56,7 @@ namespace TaskManagemenTest.Controllers
             var taskManagementMock = new Mock<TaskManagement>();
 
             taskManagementMock.Object.Id = 1;
-            taskManagementMock.Object.TaskName = "Tarea de ejemplo";
+            taskManagementMock.Object.Name = "Tarea de ejemplo";
             taskManagementMock.Object.Description = "Descripción de la tarea de ejemplo";
             taskManagementMock.Object.ExpirationDate = DateTime.Now.AddDays(7);
             taskManagementMock.Object.IsComplete = false;

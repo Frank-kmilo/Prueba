@@ -64,7 +64,7 @@ namespace Prueba.API.Helpers
             {
                 TaskManagement newTask = await _context.TaskManagements.Where(x => x.Id == taskManagement.Id).FirstOrDefaultAsync();
 
-                newTask.TaskName = taskManagement.TaskName;
+                newTask.Name = taskManagement.Name;
                 newTask.Description = taskManagement.Description;
                 newTask.IsComplete = taskManagement.IsComplete;
 

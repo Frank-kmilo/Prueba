@@ -7,7 +7,9 @@ using Prueba.API.Models;
 
 namespace Prueba.API.Controllers
 {
-    
+    [Produces("aplication/json")]
+    [Route("api/account")]
+    [ApiController]
     public class AccountController : Controller
     {
         private readonly IUserHelper _userHelper;
@@ -18,19 +20,19 @@ namespace Prueba.API.Controllers
         }      
 
         [HttpPost]
-        [Route("Account/AddUserAsync")]
-        public async Task<IdentityResult> AddUserAsync(AddUserViewModel addUser, string password) {
+        [Route("add-user-Async")]
+        public async Task<IdentityResult> AddUserAsync(AddUserViewModel addUser) {
             User user = new User()
             {
                 FisrtName = addUser.FisrtName,
                 Email = addUser.Email,
                 LastName = addUser.LastName,
             };
-            return await _userHelper.AddUserAsync(user, password);
+            return await _userHelper.AddUserAsync(user, addUser.password);
         }
 
         [HttpPost]
-        [Route("Account/Login")]
+        [Route("login")]
         public async Task<bool> Login(LoginViewModel model) {
             if (ModelState.IsValid)
             {
