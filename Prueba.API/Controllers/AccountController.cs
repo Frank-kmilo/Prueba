@@ -20,15 +20,15 @@ namespace Prueba.API.Controllers
         }      
 
         [HttpPost]
-        [Route("add-user-Async")]
+        [Route("add-user-async")]
         public async Task<IdentityResult> AddUserAsync(AddUserViewModel addUser) {
             User user = new User()
             {
-                fisrtName = addUser.fisrtName,
-                Email = addUser.email,
-                lastName = addUser.lastName,
+                FisrtName = addUser.FirstName,
+                Email = addUser.Email,
+                LastName = addUser.LastName,
             };
-            return await _userHelper.AddUserAsync(user, addUser.password);
+            return await _userHelper.AddUserAsync(user, addUser.Password);
         }
 
         [HttpPost]

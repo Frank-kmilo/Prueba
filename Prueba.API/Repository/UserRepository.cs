@@ -20,9 +20,17 @@ namespace Prueba.API.Repository
             _SignInManager = signInManager;
         }
 
-        public async Task<IdentityResult> AddUserAsync(User user, string password)
+        public async Task<bool> AddUserAsync(User user, string password)
         {
-            return await _userManager.CreateAsync(user, password);
+            try
+            {
+                await _userManager.CreateAsync(user, password);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
 
         public async Task<User> GetUserAsync(string email)
@@ -30,9 +38,17 @@ namespace Prueba.API.Repository
             return await _context.Users.FirstOrDefaultAsync(x => x.Email == email);
         }
 
-        public async Task<SignInResult> LoginAsync(LoginViewModel model)
+        public async Task<bool> LoginAsync(LoginViewModel model)
         {
-            return await _SignInManager.PasswordSignInAsync(model.userName, model.password, false, false);
+            try
+            {
+                await _SignInManager.PasswordSignInAsync(model.UserName, model.Password, false, false);
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
         public async Task LogoutAsync()

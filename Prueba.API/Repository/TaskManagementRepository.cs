@@ -28,18 +28,18 @@ namespace Prueba.API.Repository
 
         public async Task<bool> DeleteTask(int Id)
         {
-            TaskManagement task = new TaskManagement();
+            TaskManagement task = new();
             try
             {
-                task = _context.TaskManagements.Where(x => x.id == Id).FirstOrDefault();
+                task = _context.TaskManagements.Where(x => x.Id == Id).FirstOrDefault();
                 if (task != null)
                 {
-                    _context.Remove(task);
-                    await _context.SaveChangesAsync();
+                    _ = _context.Remove(task);
+                    _ = await _context.SaveChangesAsync();
                 }
                 return true;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return false;
             }
@@ -49,11 +49,11 @@ namespace Prueba.API.Repository
         {
             try
             {
-                _context.TaskManagements.Add(taskManagement);
-                await _context.SaveChangesAsync();
+                _ = _context.TaskManagements.Add(taskManagement);
+                _ = await _context.SaveChangesAsync();
                 return true;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return false;
             }
@@ -63,17 +63,17 @@ namespace Prueba.API.Repository
         {
             try
             {
-                TaskManagement newTask = await _context.TaskManagements.Where(x => x.id == taskManagement.id).FirstOrDefaultAsync();
+                TaskManagement newTask = await _context.TaskManagements.Where(x => x.Id == taskManagement.Id).FirstOrDefaultAsync();
 
-                newTask.name = taskManagement.name;
-                newTask.description = taskManagement.description;
-                newTask.isComplete = taskManagement.isComplete;
+                newTask.Name = taskManagement.Name;
+                newTask.Description = taskManagement.Description;
+                newTask.IsComplete = taskManagement.IsComplete;
 
                 _ = _context.Update(newTask);
                 _ = await _context.SaveChangesAsync();
                 return true;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return false;
             }

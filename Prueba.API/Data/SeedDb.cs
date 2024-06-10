@@ -31,8 +31,8 @@ namespace Prueba.API.Data
                 user = new User
                 {
                     Email = email,
-                    fisrtName = firstName,
-                    lastName = lastName,
+                    FisrtName = firstName,
+                    LastName = lastName,
                     UserName = email
                 };
 

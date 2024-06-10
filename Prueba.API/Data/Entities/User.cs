@@ -10,13 +10,13 @@ namespace Prueba.API.Data.Entities
         [MaxLength(50, ErrorMessage = "El campo {0} no puede tener mas de {1} carácteres.")]
         [Required(ErrorMessage = "El campo {0} es obligatorio.")]
         [JsonProperty]
-        public string fisrtName { get; set; }
+        public string FisrtName { get; set; }
 
         [Display(Name = "Apellidos")]
         [MaxLength(50, ErrorMessage = "El campo {0} no puede tener mas de {1} carácteres.")]
         [Required(ErrorMessage = "El campo {0} es obligatorio.")]
         [JsonProperty]
-        public string lastName { get; set; }
+        public string LastName { get; set; }
 
         [JsonIgnore]
         public ICollection<TaskManagement> taskManagement { get; set; }

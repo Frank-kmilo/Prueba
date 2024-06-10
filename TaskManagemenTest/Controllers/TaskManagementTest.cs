@@ -55,11 +55,11 @@ namespace TaskManagemenTest.Controllers
             string result;
             var taskManagementMock = new Mock<TaskManagement>();
 
-            taskManagementMock.Object.id = 1;
-            taskManagementMock.Object.name = "Tarea de ejemplo";
-            taskManagementMock.Object.description = "Descripción de la tarea de ejemplo";
-            taskManagementMock.Object.expirationDate = DateTime.Now.AddDays(7);
-            taskManagementMock.Object.isComplete = false;
+            taskManagementMock.Object.Id = 1;
+            taskManagementMock.Object.Name = "Tarea de ejemplo";
+            taskManagementMock.Object.Description = "Descripción de la tarea de ejemplo";
+            taskManagementMock.Object.ExpirationDate = DateTime.Now.AddDays(7);
+            taskManagementMock.Object.IsComplete = false;
          
             // Act
             result = await controller.Create(taskManagementMock.Object);

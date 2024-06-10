@@ -15,7 +15,7 @@ namespace Prueba.API.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            _ = modelBuilder.Entity<TaskManagement>().HasIndex(x => x.id).IsUnique();
+            _ = modelBuilder.Entity<TaskManagement>().HasIndex(x => x.Id).IsUnique();
         }
     }
 }

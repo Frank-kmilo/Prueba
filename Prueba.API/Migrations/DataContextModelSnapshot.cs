@@ -157,32 +157,37 @@ namespace Prueba.API.Migrations
 
             modelBuilder.Entity("Prueba.API.Data.Entities.TaskManagement", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"), 1L, 1);
 
-                    b.Property<string>("Description")
+                    b.Property<string>("description")
                         .IsRequired()
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
-                    b.Property<DateTime>("ExpirationDate")
+                    b.Property<DateTime>("expirationDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("IsComplete")
+                    b.Property<bool>("isComplete")
                         .HasColumnType("bit");
 
-                    b.Property<string>("TaskName")
+                    b.Property<string>("name")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
-                    b.HasKey("Id");
+                    b.Property<string>("userId")
+                        .HasColumnType("nvarchar(450)");
 
-                    b.HasIndex("Id")
+                    b.HasKey("id");
+
+                    b.HasIndex("id")
                         .IsUnique();
+
+                    b.HasIndex("userId");
 
                     b.ToTable("TaskManagements");
                 });
@@ -199,27 +204,12 @@ namespace Prueba.API.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Document")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
-
                     b.Property<string>("Email")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
-
-                    b.Property<string>("FisrtName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
@@ -253,6 +243,16 @@ namespace Prueba.API.Migrations
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("fisrtName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("lastName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
 
@@ -316,6 +316,20 @@ namespace Prueba.API.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Prueba.API.Data.Entities.TaskManagement", b =>
+                {
+                    b.HasOne("Prueba.API.Data.Entities.User", "user")
+                        .WithMany("taskManagement")
+                        .HasForeignKey("userId");
+
+                    b.Navigation("user");
+                });
+
+            modelBuilder.Entity("Prueba.API.Data.Entities.User", b =>
+                {
+                    b.Navigation("taskManagement");
                 });
 #pragma warning restore 612, 618
         }
