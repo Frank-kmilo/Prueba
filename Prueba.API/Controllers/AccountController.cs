@@ -24,9 +24,9 @@ namespace Prueba.API.Controllers
         public async Task<IdentityResult> AddUserAsync(AddUserViewModel addUser) {
             User user = new User()
             {
-                FisrtName = addUser.FisrtName,
-                Email = addUser.Email,
-                LastName = addUser.LastName,
+                fisrtName = addUser.fisrtName,
+                Email = addUser.email,
+                lastName = addUser.lastName,
             };
             return await _userHelper.AddUserAsync(user, addUser.password);
         }

@@ -2,15 +2,16 @@
 using Microsoft.EntityFrameworkCore;
 using Prueba.API.Data;
 using Prueba.API.Data.Entities;
+using Prueba.API.Helpers;
 
-namespace Prueba.API.Helpers
+namespace Prueba.API.Repository
 {
     [Authorize]
-    public class TaskManagementHelper : ITaskManagerHelper
+    public class TaskManagementRepository : ITaskManagerHelper
     {
         private readonly DataContext _context;
 
-        public TaskManagementHelper(DataContext context)
+        public TaskManagementRepository(DataContext context)
         {
             _context = context;
         }
@@ -27,13 +28,13 @@ namespace Prueba.API.Helpers
 
         public async Task<bool> DeleteTask(int Id)
         {
-            TaskManagement oTask = new TaskManagement();
+            TaskManagement task = new TaskManagement();
             try
             {
-                oTask = _context.TaskManagements.Where(x => x.Id == Id).FirstOrDefault();
-                if (oTask != null)
+                task = _context.TaskManagements.Where(x => x.id == Id).FirstOrDefault();
+                if (task != null)
                 {
-                    _context.Remove(oTask);
+                    _context.Remove(task);
                     await _context.SaveChangesAsync();
                 }
                 return true;
@@ -62,11 +63,11 @@ namespace Prueba.API.Helpers
         {
             try
             {
-                TaskManagement newTask = await _context.TaskManagements.Where(x => x.Id == taskManagement.Id).FirstOrDefaultAsync();
+                TaskManagement newTask = await _context.TaskManagements.Where(x => x.id == taskManagement.id).FirstOrDefaultAsync();
 
-                newTask.Name = taskManagement.Name;
-                newTask.Description = taskManagement.Description;
-                newTask.IsComplete = taskManagement.IsComplete;
+                newTask.name = taskManagement.name;
+                newTask.description = taskManagement.description;
+                newTask.isComplete = taskManagement.isComplete;
 
                 _ = _context.Update(newTask);
                 _ = await _context.SaveChangesAsync();

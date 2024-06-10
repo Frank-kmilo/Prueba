@@ -4,6 +4,7 @@ using Microsoft.Extensions.Hosting;
 using Prueba.API.Data;
 using Prueba.API.Data.Entities;
 using Prueba.API.Helpers;
+using Prueba.API.Repository;
 using System.Text.Json;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
@@ -37,7 +38,7 @@ builder.Services.AddControllers().AddJsonOptions(options =>
     options.JsonSerializerOptions.DictionaryKeyPolicy = null;
 });
 builder.Services.AddTransient<SeedDb>();
-builder.Services.AddScoped<IUserHelper, UserHelper>();
+builder.Services.AddScoped<IUserHelper, UserRepository>();
 
 builder.Services.AddIdentity<User, IdentityRole>()
     .AddEntityFrameworkStores<DataContext>()

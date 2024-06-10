@@ -2,17 +2,18 @@
 using Microsoft.EntityFrameworkCore;
 using Prueba.API.Data;
 using Prueba.API.Data.Entities;
+using Prueba.API.Helpers;
 using Prueba.API.Models;
 
-namespace Prueba.API.Helpers
+namespace Prueba.API.Repository
 {
-    public class UserHelper : IUserHelper
+    public class UserRepository : IUserHelper
     {
         private readonly UserManager<User> _userManager;
         private readonly DataContext _context;
         private readonly SignInManager<User> _SignInManager;
 
-        public UserHelper(UserManager<User> userManager, DataContext context, SignInManager<User> signInManager)
+        public UserRepository(UserManager<User> userManager, DataContext context, SignInManager<User> signInManager)
         {
             _userManager = userManager;
             _context = context;
@@ -31,7 +32,7 @@ namespace Prueba.API.Helpers
 
         public async Task<SignInResult> LoginAsync(LoginViewModel model)
         {
-            return await _SignInManager.PasswordSignInAsync(model.UserName, model.Password, false, false);
+            return await _SignInManager.PasswordSignInAsync(model.userName, model.password, false, false);
         }
 
         public async Task LogoutAsync()
